@@ -15,5 +15,7 @@ public class MessageService {
 		
 		int sum=a+b;
 		return sum;
-	} 
+	}
+	//this is a demo change in source code to check if jenkins fetching data automatically or not 
+	
 }
