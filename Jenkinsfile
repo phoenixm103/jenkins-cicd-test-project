@@ -40,7 +40,7 @@ pipeline {
         always {
             echo 'message sent to given mail addresses'
            	   mail bcc: '', 
-		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}" + "\n Changes: " + getChangeString() + "\n Check console output at: $BUILD_URL/console" + "\n", 
+		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}" + "\n Check console output at: $BUILD_URL/console" + "\n", 
 		   cc: '', 
 		   charset: 'UTF-8', 
 		   from: 'moin123456.m@gmail.com', 
