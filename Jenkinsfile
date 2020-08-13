@@ -39,11 +39,11 @@ pipeline {
     post {
         always {
             echo 'This will always run'
-           mail bcc: '', body: "abc", cc: '', charset: 'UTF-8', from: 'moinuddinm103@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ", to: "moinuddinm103@gmail.com";
+           mail bcc: '', body: "abc", cc: '', charset: 'UTF-8', from: 'moin123456.m@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ", to: "moin123456.m@gmail.com";
         }
    
         failure {
-                       mail to: 'moinuddinm103@gmail.com',
+            mail to: 'moin123456.m@gmail.com',
             subject: "Failed Pipeline: ${currentBuild.fullDisplayName} Job: ${env.JOB_NAME} ",
              body: "Something is wrong with ${env.BUILD_URL}"
         }
