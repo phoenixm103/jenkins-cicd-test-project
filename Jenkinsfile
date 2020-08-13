@@ -38,9 +38,18 @@ pipeline {
     }
     post {
         always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+            echo 'This will always run'
+           mail bcc: '', body: "abc", cc: '', charset: 'UTF-8', from: 'moinuddinm103@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ", to: "moinuddinm103@gmail.com";
         }
+   
+        failure {
+                       mail to: 'moinuddinm103@gmail.com',
+            subject: "Failed Pipeline: ${currentBuild.fullDisplayName} Job: ${env.JOB_NAME} ",
+             body: "Something is wrong with ${env.BUILD_URL}"
+        }
+   
     }
+
 }
 
 
