@@ -38,8 +38,16 @@ pipeline {
     }
     post {
         always {
-            echo 'This will always run'
-           mail bcc: '', body: "abc", cc: '', charset: 'UTF-8', from: 'moin123456.m@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ", to: "moin123456.m@gmail.com,moinuddinm103@gmail.com";
+            echo 'message sent to given mail addresses'
+           	   mail bcc: '', 
+		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}", 
+		   cc: '', 
+		   charset: 'UTF-8', 
+		   from: 'moin123456.m@gmail.com', 
+		   mimeType: 'text/html', 
+		   replyTo: '', 
+		   subject: "ERROR CI: ${currentBuild.fullDisplayName} Job: ${env.JOB_NAME} ", 
+		   to: "moin123456.m@gmail.com,moinuddinm103@gmail.com";
 	}
    
         failure {
