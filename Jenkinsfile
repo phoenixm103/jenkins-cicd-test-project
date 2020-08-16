@@ -43,11 +43,9 @@ pipeline {
 		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}" + 
 			   "\n Check console output at: $BUILD_URL/console" +
 			   "\n Check Test output : "+ 
-			   readFile("com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt")+
-			   "\n Check console output2 : "+
-			   readFile("com.example.jenkinscicdtestproject.JenkinsCicdTestProjectApplicationTests.txt")+
-			   "\n Check console output2 : "+
-			   readFile("com.example.jenkinscicdtestproject.service.MessageServiceTest.txt")
+			   readFile("com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt",
+				    "com.example.jenkinscicdtestproject.JenkinsCicdTestProjectApplicationTests.txt",
+				  "com.example.jenkinscicdtestproject.service.MessageServiceTest.txt")
 			   , 
 		   cc: '', 
 		   charset: 'UTF-8', 
