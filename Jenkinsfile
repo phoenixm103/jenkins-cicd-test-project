@@ -41,8 +41,14 @@ pipeline {
             echo 'message sent to given mail addresses'
            	   mail bcc: '', 
 		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}" + 
-			   "\n Check console output at: $BUILD_URL/console" + "\n Check console output2 : "+ 
-			   readFile("target/surefire-reports/TEST-com.example.jenkinscicdtestproject.controller.HelloControllerTest.xml"), 
+			   "\n Check console output at: $BUILD_URL/console" +
+			   "\n Check Test output : "+ 
+			   readFile("com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt")+
+			   "\n Check console output2 : "+
+			   readFile("com.example.jenkinscicdtestproject.JenkinsCicdTestProjectApplicationTests.txt")+
+			   "\n Check console output2 : "+
+			   readFile("com.example.jenkinscicdtestproject.service.MessageServiceTest.txt")
+			   , 
 		   cc: '', 
 		   charset: 'UTF-8', 
 		   from: 'moin123456.m@gmail.com', 
