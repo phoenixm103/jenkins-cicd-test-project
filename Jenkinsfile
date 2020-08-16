@@ -42,7 +42,7 @@ pipeline {
            	   mail bcc: '', 
 		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}" + 
 			   "\n Check console output at: $BUILD_URL/console" + "\n Check console output2 : "+ 
-			   readFile("target/surefire-reports/com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt"), 
+			   readFile("target/surefire-reports/TEST-com.example.jenkinscicdtestproject.controller.HelloControllerTest.xml"), 
 		   cc: '', 
 		   charset: 'UTF-8', 
 		   from: 'moin123456.m@gmail.com', 
