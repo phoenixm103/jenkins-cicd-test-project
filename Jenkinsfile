@@ -45,8 +45,7 @@ pipeline {
 			   "\n Check Test output : "+ 
 			   readFile("com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt"+
 				    "com.example.jenkinscicdtestproject.JenkinsCicdTestProjectApplicationTests.txt"+
-				  "com.example.jenkinscicdtestproject.service.MessageServiceTest.txt")
-			   , 
+				  "com.example.jenkinscicdtestproject.service.MessageServiceTest.txt"),
 		   cc: '', 
 		   charset: 'UTF-8', 
 		   from: 'moin123456.m@gmail.com', 
