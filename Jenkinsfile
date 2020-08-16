@@ -45,7 +45,6 @@ pipeline {
 			   "\n Check Test output : " + readFile(target/surefire-reports/"com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt")+
 			   "\n Check Test output : " + readFile(target/surefire-reports/"com.example.jenkinscicdtestproject.JenkinsCicdTestProjectApplicationTests.txt")+
 			   "\n Check Test output3 : "+ readFile(target/surefire-reports/"com.example.jenkinscicdtestproject.service.MessageServiceTest.txt”),
-
 		   cc: '', 
 		   charset: 'UTF-8', 
 		   from: 'moin123456.m@gmail.com', 
