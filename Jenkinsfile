@@ -42,7 +42,6 @@ pipeline {
             echo 'message sent to given mail addresses'
            	   emailext (bcc: '', 
 		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}"+
-			   "${FILE,path="Seleniun/test-output/emailable-report.html"}"+
 			   "\n Check console output at: $BUILD_URL/console"+
 			   "\n Check Test output main  : " +readFile("target/surefire-reports/emailable-report.html")+  
 			   "\n Check Test output1 : " +readFile("target/surefire-reports/com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt")+
