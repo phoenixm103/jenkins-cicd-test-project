@@ -35,22 +35,14 @@ pipeline {
             	pushToImage(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, DOCKER_HUB_PASSWORD)
         	}
         }
-	    stage('Junit'){
-        	steps {
-			echo ''
-        	}
-		post{
-			always{
-				junit 'target/surefire-reports/*.xml'
-			}
-		}
-        }
+	   
     }
     post {
         always {
             echo 'message sent to given mail addresses'
            	   mail bcc: '', 
 		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}"+
+			   "${FILE,path="Seleniun/test-output/emailable-report.html"}"+
 			   "\n Check console output at: $BUILD_URL/console"+
 			   "\n Check Test output1 : " +readFile("target/surefire-reports/com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt")+
 			   "\n Check Test output2 : " +readFile("target/surefire-reports/com.example.jenkinscicdtestproject.JenkinsCicdTestProjectApplicationTests.txt")+
