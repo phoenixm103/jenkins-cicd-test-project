@@ -35,13 +35,23 @@ pipeline {
             	pushToImage(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, DOCKER_HUB_PASSWORD)
         	}
         }
+	    stage('Junit'){
+        	steps {
+			echo ''
+        	}
+		post{
+			always{
+				junit '/var/lib/jenkins/workspace/jenkins-cicd-demo/target/surefire-reports/*.xml'
+			}
+		}
+        }
     }
     post {
         always {
             echo 'message sent to given mail addresses'
            	   mail bcc: '', 
 		   body: "${currentBuild.fullDisplayName} Job: ${env.JOB_NAME}"+
-			   "\n Check console output at: $BUILD_URL/consoleText"+
+			   "\n Check console output at: $BUILD_URL/console"+
 			   "\n Check Test output1 : " +readFile("target/surefire-reports/com.example.jenkinscicdtestproject.controller.HelloControllerTest.txt")+
 			   "\n Check Test output2 : " +readFile("target/surefire-reports/com.example.jenkinscicdtestproject.JenkinsCicdTestProjectApplicationTests.txt")+
 			   "\n Check Test output3 : " +readFile("target/surefire-reports/com.example.jenkinscicdtestproject.service.MessageServiceTest.txt"),
