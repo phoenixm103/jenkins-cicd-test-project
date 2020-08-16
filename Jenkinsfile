@@ -41,7 +41,7 @@ pipeline {
         	}
 		post{
 			always{
-				junit '/var/lib/jenkins/workspace/jenkins-cicd-demo/target/surefire-reports/*.xml'
+				junit 'target/surefire-reports/*.xml'
 			}
 		}
         }
