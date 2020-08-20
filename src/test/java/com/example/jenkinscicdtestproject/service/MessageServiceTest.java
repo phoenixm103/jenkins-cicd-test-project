@@ -26,4 +26,4 @@ public class MessageServiceTest {
 	   void testAddingTwoPositives() {
 		   assertEquals(2, messageService.add(1, 1), "Add method should return the sum of two numbers");
 	   }
-}
+}//change 
