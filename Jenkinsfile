@@ -16,10 +16,7 @@ pipeline {
     	stage ('Compile Stage') {
 	    steps {
       		sh "mvn clean package"        	
-            }            
-            
-            
-            
+            }          
         }
         stage ('Testing Stage') {
             steps {
@@ -30,19 +27,12 @@ pipeline {
         	steps {
         		imageBuild(CONTAINER_NAME, CONTAINER_TAG)
     		}
-		}
+	}
     	stage('Push to Docker Registry'){
         	steps {
             	pushToImage(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, DOCKER_HUB_PASSWORD)
         	}
-        }
-	stage('Performance tests') {
-        	steps {
-            	echo "-=- execute performance tests -=-"
-            	sh "./mvnw jmeter:jmeter jmeter:results -Djmeter.target.host=${CONTAINER_NAME} -Djmeter.target.port=${HTTP_PORT} -Djmeter.target.root=${APP_CONTEXT_ROOT}"
-            	perfReport sourceDataFiles: 'target/jmeter/results/*.csv'
-        }
-    }
+	}
 	   
     }
     post {
