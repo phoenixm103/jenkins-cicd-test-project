@@ -30,11 +30,12 @@ pipeline {
         	steps {
         		imageBuild(CONTAINER_NAME, CONTAINER_TAG)
     		}
-	}
+		}
     	stage('Push to Docker Registry'){
         	steps {
             	pushToImage(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, DOCKER_HUB_PASSWORD)
         	}
+        }
         stage('Performance tests') {
             steps {
                 echo "-=- execute performance tests -=-"
