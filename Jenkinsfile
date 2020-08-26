@@ -6,36 +6,45 @@ def HTTP_PORT="6090"// This is related to application port
 def APP_CONTEXT_ROOT = "/"
 
 pipeline {
+    
     agent any
+    
     environment {
         APP_CONTEXT_ROOT = "/"
     }
+    
     stages {
+    	
     	stage('Checkout') {
         	steps {
         		checkout scm
     		}
     	}
+    	
     	stage ('Compile Stage') {
-	    steps {
-      		sh "mvn clean package"        	
+	    	steps {
+      			sh "mvn clean package"        	
             }          
         }
+        
         stage ('Testing Stage') {
             steps {
             	sh 'mvn test'
             }
         }
+        
         stage('Image Build'){
         	steps {
         		imageBuild(CONTAINER_NAME, CONTAINER_TAG)
     		}
 		}
+		
     	stage('Push to Docker Registry'){
         	steps {
             	pushToImage(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, DOCKER_HUB_PASSWORD)
         	}
         }
+        
         stage('Performance tests') {
             steps {
                 echo "-=- execute performance tests -=-"
@@ -45,7 +54,6 @@ pipeline {
         }
 	}
 	   
-    }
     post {
         always {
             echo 'message sent to given mail addresses'
@@ -62,18 +70,14 @@ pipeline {
 		   replyTo: '', 
 		   subject: "ERROR CI: ${currentBuild.fullDisplayName} Job: ${env.JOB_NAME} ", 
 		   to: "moin123456.m@gmail.com,moinuddinm103@gmail.com");
-	}
-   
+		}
         failure {
             mail to: 'moin123456.m@gmail.com',
             subject: "Failed Pipeline: ${currentBuild.fullDisplayName} Job: ${env.JOB_NAME} ",
              body: "Something is wrong with ${env.BUILD_URL}"
         }
-   
     }
-
 }
-
 
 def imageBuild(containerName, tag){
     sh "docker build -t $containerName:$tag  -t $containerName --pull --no-cache ."
@@ -86,4 +90,3 @@ def pushToImage(containerName, tag, dockerUser, dockerPassword){
     sh "docker push $dockerUser/$containerName:$tag"
     echo "Image push complete"
 }
-
