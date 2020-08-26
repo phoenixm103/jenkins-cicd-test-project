@@ -3,10 +3,13 @@ def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="moin123456"      // Change with you'r DockerHub username.
 def DOCKER_HUB_PASSWORD="moin123456"
 def HTTP_PORT="6090"// This is related to application port
-APP_CONTEXT_ROOT = "/"
+def APP_CONTEXT_ROOT = "/"
 
 pipeline {
     agent any
+    environment {
+        APP_CONTEXT_ROOT = "/"
+    }
     stages {
     	stage('Checkout') {
         	steps {
@@ -32,6 +35,13 @@ pipeline {
         	steps {
             	pushToImage(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, DOCKER_HUB_PASSWORD)
         	}
+        stage('Performance tests') {
+            steps {
+                echo "-=- execute performance tests -=-"
+                sh "./mvnw jmeter:jmeter jmeter:results -Djmeter.target.host=${CONTAINER_NAME} -Djmeter.target.port=${HTTP_PORT} -Djmeter.target.root=${APP_CONTEXT_ROOT}"
+                perfReport sourceDataFiles: 'target/jmeter/results/*.csv', errorUnstableThreshold: 0, errorFailedThreshold: 5, errorUnstableResponseTimeThreshold: 'default.jtl:100'
+            }
+        }
 	}
 	   
     }
