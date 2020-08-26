@@ -36,6 +36,12 @@ pipeline {
             	pushToImage(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, DOCKER_HUB_PASSWORD)
         	}
         }
+	stage('Performance tests') {
+        	steps {
+            	echo "-=- execute performance tests -=-"
+            	sh "./mvnw jmeter:jmeter jmeter:results -Djmeter.target.host=${CONTAINER_NAME} -Djmeter.target.port=${HTTP_PORT} -Djmeter.target.root=${APP_CONTEXT_ROOT}"
+            	perfReport sourceDataFiles: 'target/jmeter/results/*.csv'
+        }
     }
 	   
     }
