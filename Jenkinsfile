@@ -58,7 +58,7 @@ pipeline {
        			sh "jmeter -Jjmeter.save.saveservice.output_format=xml -n -t src/main/resources/JMeter.jmx -l src/main/resources/JMeter.jtl"
         		step([$class: 'ArtifactArchiver', artifacts: 'JMeter.jtl'])
         		
-        		sh "pid=\$(lsof -i:6090 -t); kill -TERM \$pid || kill -KILL \$pid
+        		sh "pid=\$(lsof -i:6090 -t); kill -TERM \$pid || kill -KILL \$pid"
             
             }
         }
