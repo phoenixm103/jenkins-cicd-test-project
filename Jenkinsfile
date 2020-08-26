@@ -52,8 +52,6 @@ pipeline {
                 sh "./mvnw clean install -DskipTests"
         		
         		sh 'nohup ./mvnw spring-boot:run -Dserver.port=6090 &'
-        		
-        		sh "while ! httping -qc1 http://103.36.103.95:6090 ; do sleep 1 ; done"
                 
        			sh "jmeter -Jjmeter.save.saveservice.output_format=xml -n -t src/main/resources/JMeter.jmx -l src/main/resources/JMeter.jtl"
         		step([$class: 'ArtifactArchiver', artifacts: 'JMeter.jtl'])

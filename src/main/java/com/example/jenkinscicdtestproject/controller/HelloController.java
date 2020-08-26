@@ -17,5 +17,6 @@ public class HelloController {
 	public String sayHello(@RequestParam String user) {
 		return messageService.getSubscriptionMessage(user);
 	}
+	
 
 }
