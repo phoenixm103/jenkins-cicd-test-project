@@ -8,6 +8,6 @@ public class JenkinsCicdTestProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JenkinsCicdTestProjectApplication.class, args);
-	}
+	}////////
 
 }
