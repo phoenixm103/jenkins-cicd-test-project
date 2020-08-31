@@ -45,21 +45,21 @@ pipeline {
         	}
         }
         
-        stage('Performance tests') {
-            steps {
-                echo "-=- execute performance tests -=-"
-                
-                sh "./mvnw clean install -DskipTests"
-        		
-        		sh 'nohup ./mvnw spring-boot:run -Dserver.port=6090 &'
-                
-       			sh "jmeter -Jjmeter.save.saveservice.output_format=xml -n -t apache-jmeter-5.2.1/printable_docs/demos/AssertionTestPlan.jmx -l src/main/resources/JMeter.jtl"
-        		step([$class: 'ArtifactArchiver', artifacts: 'JMeter.jtl'])
-        		
-        		sh "pid=\$(lsof -i:6090 -t); kill -TERM \$pid || kill -KILL \$pid"
-            
-            }
-        }
+      //  stage('Performance tests') {
+      //      steps {
+      //          echo "-=- execute performance tests -=-"
+      //          
+      //          sh "./mvnw clean install -DskipTests"
+      //  		
+      //  		sh 'nohup ./mvnw spring-boot:run -Dserver.port=6090 &'
+      //          
+      // 			sh "jmeter -Jjmeter.save.saveservice.output_format=xml -n -t apache-jmeter-5.2.1/printable_docs/demos/AssertionTestPlan.jmx -l src/main/resources/JMeter.jtl"
+      //  		step([$class: 'ArtifactArchiver', artifacts: 'JMeter.jtl'])
+      //  		
+      //  		sh "pid=\$(lsof -i:6090 -t); kill -TERM \$pid || kill -KILL \$pid"
+      //      
+      //      }
+      //  }
 	}
 	   
     post {
