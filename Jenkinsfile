@@ -8,12 +8,12 @@ pipeline{
   		}
     	stage ('Compile Stage') {
 	  		steps {
-        		echo 'Static analysis completed.'
+        		sh 'mvn install -DSkipTests'
       		}
     	}
     	stage ('Testing Stage') {
       		steps {
-        		sh 'mvn test'
+        		echo 'Static analysis completed.'
       		}
     	}
     	stage ('Static Analysis') {
